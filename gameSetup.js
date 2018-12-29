@@ -69,17 +69,18 @@ AFRAME.registerComponent('setup', {
 
         setup: function (mapSize, boxCount, switchCount, defaultHeight, defaultRadius) {
             let sceneEl = this.el;
+
             // let room = document.createElement('a-box');
             // room.setAttribute('opacity',1);
             // room.setAttribute('scale',"200 200 200");
 
             let circles = generateMap(mapSize, defaultRadius, boxCount, switchCount);
-
+            // localStorage.setItem('circles', JSON.stringify(circles));
+            
             for (let i = 0; i < circles.length; i++) {
                 var circle = circles[i];
                 //{x:circle.x, y:defaultHeight/2.,z:circle.y}
-                var position = "";
-                position = -circle.x + " " + defaultHeight / 2. + " " + -circle.y;
+                let position = -circle.x + " " + defaultHeight / 2. + " " + -circle.y;
                 // console.log("position:", position)
                 let chamberEl = document.createElement('a-cylinder');
                 chamberEl.setAttribute("color", "#494949");
@@ -109,8 +110,6 @@ AFRAME.registerComponent('setup', {
                     let xShift = defaultRadius*Math.cos(theta);
                     let yShift = defaultRadius*Math.sin(theta);
                     let pose = xShift + " " + "0" + " " + yShift;
-
-
 
                     let plane = document.createElement("a-plane");
                     plane.setAttribute('height',defaultHeight);
@@ -144,7 +143,7 @@ AFRAME.registerComponent('setup', {
                 table.setAttribute("radius", defaultRadius / 2);
                 table.setAttribute("position", "y", -defaultHeight / 6);
                 cyl.appendChild(table);
-                cyl2panels(50, cyl);
+                cyl2panels(5, cyl);
 
 
                 if (!cyl.classList.contains("empty")) {
@@ -171,17 +170,26 @@ AFRAME.registerComponent('setup', {
                         //btn.setAttribute("animation","property: material.color; dir: alternate; dur: 1000;easing: easeInSine; loop: true; to: #FFF; startEvents:mouseenter; stopEvents:mouseleave");
 
                         cyl.appendChild(btn);
-
                     }
                     cyl.appendChild(text);
-
                 }
-
             }
-
-
-
-
+        },
+        tick: function (t,timedelta){
+            // Run on an interval.
+            let interval = 300
+            if (t - this.time < interval) { return; } 
+            this.time = t;
+            // distance check
+            let camera_position = this.el.querySelector("a-camera").getAttribute("position")
+            let chambers = this.el.querySelectorAll("[chamberComp]")
+            for (i = 0; i < chambers.length; i++) {
+                chambers[i].distance = distanceVector(chambers[i].object3D.position,camera_position)
+                if (chambers[i].distance < 1){
+                    alert(chambers[i].getAttribute("label"))
+                // store data
+                }
+            }
         }
     }
 );

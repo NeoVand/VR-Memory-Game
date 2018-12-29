@@ -6,12 +6,10 @@ AFRAME.registerComponent('switch-btn', {
         this.el.addEventListener('mouseenter', function () {
             //TODO btn hover animation
             this.setAttribute('color', "#FFF");
-
         });
         this.el.addEventListener('mouseleave', function () {
             //TODO btn hover animation
             this.setAttribute('color', "#9a1500");
-
         });
         this.el.addEventListener('click', function () {
            let switch_label= this.parentElement.getAttribute('label');

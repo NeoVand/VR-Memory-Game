@@ -1,7 +1,3 @@
-
-
-
-
 //function generateMap(mapSize=200,houseSize=15,houseCount=30,switchCount=20,protection = 10000){
 let defaultHeight = 1.85;
 let defaultRadius = 0.8;
@@ -9,11 +5,6 @@ let circles = generateMap(20,defaultRadius,30,20);
 let sceneEl = document.querySelector('a-scene');
 let currentScore = 0;
 // console.log(sceneEl);
-
-
-
-
-
 
 for (let i =0; i<circles.length; i++){
     var circle = circles[i];
@@ -107,8 +98,6 @@ function cyl2panels(sides=10,cyl){
         let xShift = defaultRadius*Math.cos(theta);
         let yShift = defaultRadius*Math.sin(theta);
         let pose = xShift + " " + "0" + " " + yShift;
-
-
 
         let plane = document.createElement("a-plane");
         plane.setAttribute('height',defaultHeight);

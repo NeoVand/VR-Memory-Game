@@ -9,10 +9,8 @@
 
 var p5 = new p5();
 
-
-
 // a function to generate a list of unique random 3-char string codes
-function randomLabelList(stringLength=3,listLength=100, protection = 10000){
+function randomLabelList(stringLength = 3, listLength = 100, protection = 10000){
     const charList = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     rawList=[];
     for(let i=0;i<listLength+protection;i++){
@@ -25,7 +23,6 @@ function randomLabelList(stringLength=3,listLength=100, protection = 10000){
     let unique = [...new Set(rawList)];
     return unique.slice(0,listLength);
 }
-
 
 // a function that generates a random set of positions for houses with appropriate labels for switches and a key
 
@@ -210,6 +207,15 @@ function normalize_rgb_value(color, m) {
 
 function rgbToHex(r, g, b) {
     return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+}
+
+function distanceVector( v1, v2 )
+{
+    var dx = v1.x - v2.x;
+    var dy = v1.y - v2.y;
+    var dz = v1.z - v2.z;
+
+    return Math.sqrt( dx * dx + dy * dy + dz * dz );
 }
 
 // console.log(generateMap(300,15,30,20));

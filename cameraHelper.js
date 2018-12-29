@@ -1,3 +1,5 @@
+//deprecated...
+
 AFRAME.registerComponent('helper', {
     init: function () {
         let cam = document.querySelector('[camera]');
