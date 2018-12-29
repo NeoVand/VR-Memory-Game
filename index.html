@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://aframe.io/releases/0.8.2/aframe.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.4/p5.min.js"></script>
+    <script src="https://unpkg.com/aframe-text-geometry-component@^0.5.0/dist/aframe-text-geometry-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-animation-component@^4.1.2/dist/aframe-animation-component.min.js"></script>
+    <script src="https://rawgit.com/feiss/aframe-environment-component/master/dist/aframe-environment-component.min.js"></script>
+    <script src="https://rawgit.com/blairmacintyre/aframe-look-at-billboard-component/master/dist/aframe-look-at-billboard-component.min.js"></script>
+    <script src="chroma.js"></script>
+
+    <script src="gameSetup.js"></script>
+    <script src="SwitchComponent.js"></script>
+    <script src="cameraHelper.js"></script>
+    <script src="ChamberComponent.js"></script>
+
+
+
+
+
+    <script src="functions.js"></script>
+    <meta charset="UTF-8">
+    <title>VR Memory Game</title>
+</head>
+<body>
+
+<a-scene setup>
+    <a-entity environment></a-entity>
+    <a-entity id="score" text-geometry="value:0; size:4"  position="-12.5 3.5 -12.5" billboard>
+
+    </a-entity>
+    <a-entity id='cameraWrapper' position="0 0 0">
+        <a-camera >
+            <a-entity cursor raycaster="far: 20; interval: 5;" >
+                <a-entity position="0 0 -0.2"
+                          scale="0.003 0.003 0.003"
+                          geometry="primitive: ring"
+                          material="color: black; shader: flat"> </a-entity>
+            </a-entity>
+        </a-camera>
+
+
+    </a-entity>
+
+
+
+
+</a-scene>
+
+
+
+
+
+</body>
+</html>
