@@ -33,7 +33,7 @@
     </a-entity>
     <a-entity id='cameraWrapper' position="0 0 0" movement-controls="controls: gamepad">
         <a-camera >
-            <a-entity cursor raycaster="far: 20; interval: 5;" >
+            <a-entity cursor raycaster="far: 20; interval: 5; objects: .shadable" >
                 <a-entity position="0 0 -0.2"
                           scale="0.003 0.003 0.003"
                           geometry="primitive: ring"

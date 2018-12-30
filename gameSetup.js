@@ -113,6 +113,7 @@ AFRAME.registerComponent('setup', {
 
 
                     let plane = document.createElement("a-plane");
+                    plane.setAttribute('class','shadable');
                     plane.setAttribute('height',defaultHeight);
                     plane.setAttribute('position',pose);
                     plane.setAttribute('rotation','y',(90-thetaDeg));
@@ -163,6 +164,7 @@ AFRAME.registerComponent('setup', {
                         text.setAttribute('animation', `property: position; dir: alternate; dur: 1000;easing: easeInSine; loop: true; to: ${text.object3D.position.x} ${text.object3D.position.y - 0.08} ${text.object3D.position.z}`);
                         let btn = document.createElement('a-cylinder');
                         btn.setAttribute("color", "#9a1500");
+                        btn.setAttribute('class','shadable');
                         btn.setAttribute("height", defaultHeight / 4.7);
                         btn.setAttribute("radius", defaultRadius / 5);
                         btn.setAttribute('switch-btn', {});
