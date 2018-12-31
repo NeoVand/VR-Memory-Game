@@ -7,6 +7,7 @@
     <script src="https://unpkg.com/aframe-animation-component@^4.1.2/dist/aframe-animation-component.min.js"></script>
     <script src="https://rawgit.com/feiss/aframe-environment-component/master/dist/aframe-environment-component.min.js"></script>
     <script src="https://rawgit.com/blairmacintyre/aframe-look-at-billboard-component/master/dist/aframe-look-at-billboard-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-motion-capture-components/dist/aframe-motion-capture-components.min.js"></script>
     <script src="chroma.js"></script>
     <script src="gameSetup.js"></script>
     <script src="SwitchComponent.js"></script>
@@ -18,7 +19,9 @@
 </head>
 <body>
 
-<a-scene setup>
+<a-scene setup avatar-recorder avatar-replayer>
+    <a-entity id="controller1" hand-controls></a-entity>
+    <a-entity id="controller2" hand-controls></a-entity>
     <a-entity environment></a-entity>
     <a-entity id="score" text-geometry="value:0; size:4"  position="-12.5 3.5 -12.5" billboard>
 

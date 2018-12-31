@@ -1,5 +1,6 @@
 AFRAME.registerComponent('setup', {
         schema: {
+            userID: {type: 'string'},
             mapSize: {type: 'int', default: 25},
             boxCount: {type: 'int', default: 15},
             switchCount: {type: 'int', default: 8},
@@ -8,11 +9,39 @@ AFRAME.registerComponent('setup', {
             defaultRadius: {type:'float', default: 0.8}
         },
         init: function () {
-
+            var date = new Date(); 
+            var timestamp = date.getTime();
+            obj = JSON.parse(localStorage.getItem("VR"))
+            console.log("obj:",obj)
+            // console.log("obj.length:",obj.length)
+            if (obj == null) {
+                obj = []
+                n = 0
+            } else {
+                n = obj.length
+            }
+            console.log("n:",n)
+            obj.push({
+                [n] : {
+                    'uuid':'email address',
+                    'game':[]
+                }
+            })
+            localStorage.setItem("VR",JSON.stringify(obj))
         },
 
         update: function () {
             console.log("update happened!");
+
+            var date = new Date(); 
+            var timestamp = date.getTime();
+            let obj = JSON.parse(localStorage.getItem('VR'));
+            n = Object.keys(obj).length-1 //user number
+            m = Object.keys(obj[n][n]["game"]).length  //game number
+            //m = Object.keys(obj[n][n]["game"][Object.keys(obj[n][n]["game"]).length-1]).length-1
+            obj[n][n]["game"] = [{[m]:[{'start_at':timestamp}]}]
+            console.log("n:",n,"m:",m)
+            localStorage.setItem('VR',JSON.stringify(obj))
 
             //Delete everything
             this.el.querySelector('a-camera').setAttribute('position','0 1.6 0');
@@ -75,7 +104,6 @@ AFRAME.registerComponent('setup', {
             // room.setAttribute('scale',"200 200 200");
 
             let circles = generateMap(mapSize, defaultRadius, boxCount, switchCount);
-            // localStorage.setItem('circles', JSON.stringify(circles));
             
             for (let i = 0; i < circles.length; i++) {
                 var circle = circles[i];
@@ -177,7 +205,7 @@ AFRAME.registerComponent('setup', {
         },
         tick: function (t,timedelta){
             // Run on an interval.
-            let interval = 300
+            let interval = 500
             if (t - this.time < interval) { return; } 
             this.time = t;
             // distance check
@@ -186,8 +214,14 @@ AFRAME.registerComponent('setup', {
             for (i = 0; i < chambers.length; i++) {
                 chambers[i].distance = distanceVector(chambers[i].object3D.position,camera_position)
                 if (chambers[i].distance < 1){
-                    alert(chambers[i].getAttribute("label"))
-                // store data
+                    //chambers[i].getAttribute("label")
+                    let obj = JSON.parse(localStorage.getItem('VR'));
+                    n = Object.keys(obj).length-1 //user number
+                    m = Object.keys(obj[n][n]["game"]).length-1  //game number
+                    k = Object.keys(obj[n][n]["game"][m][m]).length-1 //data number
+                    console.log("obj:",obj,"m:",m,"n:",n,"k:",k)
+                    obj[n][n]["game"][m][m][k+1] = chambers[i].getAttribute("label")
+                    localStorage.setItem('VR',JSON.stringify(obj))
                 }
             }
         }
