@@ -22,25 +22,25 @@ AFRAME.registerComponent('setup', {
             }
             console.log("n:",n)
             obj.push({
-                [n] : {
-                    'uuid':'email address',
-                    'game':[]
-                }
+                'uuid':'email address',
+                'game':[]
             })
+            console.log("in init obj:",obj,"n:",n)
             localStorage.setItem("VR",JSON.stringify(obj))
         },
 
         update: function () {
             console.log("update happened!");
 
+            //add a new record
             var date = new Date(); 
             var timestamp = date.getTime();
             let obj = JSON.parse(localStorage.getItem('VR'));
-            n = Object.keys(obj).length-1 //user number
-            m = Object.keys(obj[n][n]["game"]).length  //game number
-            //m = Object.keys(obj[n][n]["game"][Object.keys(obj[n][n]["game"]).length-1]).length-1
-            obj[n][n]["game"] = [{[m]:[{'start_at':timestamp}]}]
+            n = Object.keys(obj).length-1 //user count
+            m = Object.keys(obj[n]["game"]).length  //game count
+            obj[n]["game"].push([{'start_at':timestamp}])
             console.log("n:",n,"m:",m)
+            console.log("in update obj[n][game]:",obj[n]["game"])
             localStorage.setItem('VR',JSON.stringify(obj))
 
             //Delete everything
@@ -213,14 +213,14 @@ AFRAME.registerComponent('setup', {
             let chambers = this.el.querySelectorAll("[chamberComp]")
             for (i = 0; i < chambers.length; i++) {
                 chambers[i].distance = distanceVector(chambers[i].object3D.position,camera_position)
-                if (chambers[i].distance < 1){
-                    //chambers[i].getAttribute("label")
+                if (chambers[i].distance < 1) {
                     let obj = JSON.parse(localStorage.getItem('VR'));
-                    n = Object.keys(obj).length-1 //user number
-                    m = Object.keys(obj[n][n]["game"]).length-1  //game number
-                    k = Object.keys(obj[n][n]["game"][m][m]).length-1 //data number
-                    console.log("obj:",obj,"m:",m,"n:",n,"k:",k)
-                    obj[n][n]["game"][m][m][k+1] = chambers[i].getAttribute("label")
+                    n = Object.keys(obj).length-1 //user count
+                    m = Object.keys(obj[n]["game"]).length-1  //game count
+                    k = Object.keys(obj[n]["game"][m]).length //data count, opened_at is one datum
+                    console.log("in tick before adding obj:",obj,"m:",m,"n:",n,"k:",k)
+                    obj[n]["game"][m][k] = chambers[i].getAttribute("label")
+                    console.log("in tick after adding obj:",obj,"m:",m,"n:",n,"k:",k)
                     localStorage.setItem('VR',JSON.stringify(obj))
                 }
             }
