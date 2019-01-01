@@ -64,11 +64,14 @@ AFRAME.registerComponent('switch-btn', {
                let myScore = scene.getAttribute('setup')['score'];
                // console.log("score report:", myScore);
 
+                var date = new Date(); 
+                var timestamp = date.getTime();
                let obj = JSON.parse(localStorage.getItem('VR'));
                n = Object.keys(obj).length-1 //user number
                m = Object.keys(obj[n]["game"]).length-1  //game number
                k = Object.keys(obj[n]["game"][m]).length //data count
                obj[n]["game"][m][k] = {"score":myScore-1}
+               obj[n]["game"][m][k+1] = {"end_at":timestamp}
                // obj[n][n]["game"][Object.keys(obj[n][n]["game"]).length] = chambers[i].getAttribute("label")
                localStorage.setItem('VR',JSON.stringify(obj))
 
